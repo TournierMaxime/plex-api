@@ -1,5 +1,5 @@
 import { HttpBadRequestError, HttpForbiddenError, HttpNotFoundError, HttpServerManager, HttpUnauthorizedError, Keys, } from "tm-api-common";
-import { configureServerRoutes } from "./routers/serverRouters.js";
+import { configureServerRoutes } from "./plexServer/routers/serverRouters.js";
 export const keys = new Keys();
 export const httpErrorServer = {
     HttpBadRequestError,

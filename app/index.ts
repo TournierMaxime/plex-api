@@ -7,7 +7,9 @@ import {
   Keys,
 } from "tm-api-common"
 import { Application } from "express"
-import { configureServerRoutes } from "./routers/serverRouters.js"
+import { configureServerRoutes } from "./plexServer/routers/serverRouters.js"
+import { configureActivityRoutes } from "./plexServer/routers/activityRouters.js"
+import { configureHubRoutes } from "./plexServer/routers/hubRouters.js"
 
 export const keys = new Keys()
 export const httpErrorServer = {
@@ -22,6 +24,8 @@ const app = httpServerManager.getExpressApp()
 
 const configureRoutes = (app: Application) => {
   configureServerRoutes(app)
+  configureActivityRoutes(app)
+  configureHubRoutes(app)
 }
 
 configureRoutes(app)
