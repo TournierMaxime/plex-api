@@ -1,0 +1,36 @@
+services:
+  server:
+    hostname: ${SERVICE_HOSTNAME}
+    container_name: plex-api
+
+    build:
+      context: .
+      dockerfile: ./node.Dockerfile
+      args:
+        USER_ID: 1000
+        GROUP_ID: 1000
+
+    ports:
+      - "${EXPRESS_PORT}:${EXPRESS_PORT}"
+
+    working_dir: /var/app
+
+    volumes:
+      - .:/var/app
+
+    environment:
+      NODE_ENV: "${NODE_ENV}"
+      PLEX_SERVER_PROTOCOL: "${PLEX_SERVER_PROTOCOL}"
+      PLEX_SERVER_IP: "${PLEX_SERVER_IP}"
+      PLEX_SERVER_PORT: "${PLEX_SERVER_PORT}"
+      PLEX_SERVER_TOKEN: "${PLEX_SERVER_TOKEN}"
+
+    user: 1000:1000
+
+    command: npm run dev
+
+    logging:
+      driver: json-file
+      options:
+        max-file: "10"
+        max-size: "10m"
