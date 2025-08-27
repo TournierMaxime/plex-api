@@ -10,6 +10,7 @@ import { Application } from "express"
 import { configureServerRoutes } from "./plexServer/routers/serverRouters.js"
 import { configureActivityRoutes } from "./plexServer/routers/activityRouters.js"
 import { configureHubRoutes } from "./plexServer/routers/hubRouters.js"
+import { configureLibraryRoutes } from "./plexServer/routers/libraryRouters.js"
 
 export const keys = new Keys()
 export const httpErrorServer = {
@@ -26,10 +27,9 @@ const configureRoutes = (app: Application) => {
   configureServerRoutes(app)
   configureActivityRoutes(app)
   configureHubRoutes(app)
+  configureLibraryRoutes(app)
 }
 
 configureRoutes(app)
-
-console.log(process.env.PLEX_SERVER_PROTOCOL)
 
 httpServerManager.startServer(Number(process.env.EXPRESS_PORT) || 3600)
