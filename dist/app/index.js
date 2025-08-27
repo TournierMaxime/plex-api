@@ -1,5 +1,7 @@
 import { HttpBadRequestError, HttpForbiddenError, HttpNotFoundError, HttpServerManager, HttpUnauthorizedError, Keys, } from "tm-api-common";
 import { configureServerRoutes } from "./plexServer/routers/serverRouters.js";
+import { configureActivityRoutes } from "./plexServer/routers/activityRouters.js";
+import { configureHubRoutes } from "./plexServer/routers/hubRouters.js";
 export const keys = new Keys();
 export const httpErrorServer = {
     HttpBadRequestError,
@@ -11,6 +13,8 @@ const httpServerManager = new HttpServerManager();
 const app = httpServerManager.getExpressApp();
 const configureRoutes = (app) => {
     configureServerRoutes(app);
+    configureActivityRoutes(app);
+    configureHubRoutes(app);
 };
 configureRoutes(app);
 console.log(process.env.PLEX_SERVER_PROTOCOL);

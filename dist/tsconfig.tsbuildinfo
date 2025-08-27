@@ -1,1 +1,1 @@
-{"root":["../app/index.ts","../app/config/plex.ts","../app/plexServer/controllers/serverControllers.ts","../app/plexServer/routers/serverRouters.ts","../types/express.d.ts"],"version":"5.9.2"}
+{"root":["../app/index.ts","../app/config/plex.ts","../app/plexServer/controllers/activityControllers.ts","../app/plexServer/controllers/hubControllers.ts","../app/plexServer/controllers/serverControllers.ts","../app/plexServer/routers/activityRouters.ts","../app/plexServer/routers/hubRouters.ts","../app/plexServer/routers/serverRouters.ts","../types/express.d.ts"],"version":"5.9.2"}
