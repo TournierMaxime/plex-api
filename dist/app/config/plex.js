@@ -4,6 +4,5 @@ const plexAPI = new PlexAPI({
     ip: process.env.PLEX_SERVER_IP,
     port: process.env.PLEX_SERVER_PORT,
     accessToken: process.env.PLEX_SERVER_TOKEN,
-    debugLogger: console,
 });
 export default plexAPI;
