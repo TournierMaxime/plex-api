@@ -9,6 +9,12 @@ const configureLibraryRoutes = (app: Application) => {
       libraryControllers.getAllLibraries(req, res)
     )
   )
+  app.get(
+    "/api/v1/plex/library/sections/:sectionKey/all",
+    expressAsyncHandler((req, res) =>
+      libraryControllers.getAllMediaLibrary(req, res)
+    )
+  )
 }
 
 export { configureLibraryRoutes }

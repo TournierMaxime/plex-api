@@ -21,11 +21,39 @@ class LibraryControllers {
     return { status: r.status, ct, text }
   }
 
-  // controllers/libraryControllers.ts
   async getAllLibraries(req: Request, res: Response) {
     const { status, ct, text } = await this.fetchPlexRaw("/library/sections")
     res.status(status).type("application/json").send(text)
   }
+
+  async getAllMediaLibrary(req: Request, res: Response) {
+    const { sectionKey } = req.params
+    const { type } = req.query
+
+    const { status, ct, text } = await this.fetchPlexRaw(
+      `/library/sections/${sectionKey}/all?type=${type}`
+    )
+    res.status(status).type("application/json").send(text)
+  }
+
+  /**
+   * 1 = movie
+   * 2 = show
+   * 3 = season
+   * 4 = episode
+   *
+   */
+
+  /*   async getAllMediaLibrary(req: Request, res: Response): Promise<void> {
+    const { sectionKey } = req.params
+    const { type } = req.query
+
+    const response = await this.plexAPI.library.getLibrarySectionsAll({
+      sectionKey: Number(sectionKey),
+      type: Number(type),
+    })
+    res.status(200).json(response)
+  } */
 }
 
 export const libraryControllers = new LibraryControllers()
