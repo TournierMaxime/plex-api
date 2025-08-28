@@ -9,10 +9,19 @@ class PlaylistControllers {
     }
     async getPlaylist(req, res) {
         const { playlistID } = req.params;
-        const { type } = req.query;
+        const { type, offset = "0", limit = "10" } = req.query;
         const playlist = await this.plexAPI.playlists.getPlaylist(Number(playlistID));
         const playlistItems = await this.plexAPI.playlists.getPlaylistContents(Number(playlistID), Number(type));
-        res.status(200).json({ playlist, items: playlistItems });
+        const offsetNum = Number(offset);
+        const limitNum = Number(limit);
+        const paginatedItems = playlistItems &&
+            playlistItems?.object?.mediaContainer?.metadata?.slice(offsetNum, offsetNum + limitNum);
+        res.status(200).json({
+            playlist,
+            items: paginatedItems,
+            offset: offsetNum,
+            limit: limitNum,
+        });
     }
 }
 export const playlistControllers = new PlaylistControllers();
