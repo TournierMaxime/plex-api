@@ -46,7 +46,7 @@ class ServerControllers {
             },
         });
         const data = await response.json();
-        res.status(200).json({ users: data });
+        res.status(200).json(data);
     }
 }
 export const serverControllers = new ServerControllers();
