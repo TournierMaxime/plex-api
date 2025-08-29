@@ -1,10 +1,10 @@
 services:
   server:
-    hostname: ${SERVICE_HOSTNAME}
+    hostname: "${SERVICE_HOSTNAME}"
     container_name: plex-api-dev
     command: npm run dev
     environment:
-      NODE_ENV: development
+      NODE_ENV: "${NODE_ENV}"
       PLEX_SERVER_PROTOCOL: "${PLEX_SERVER_PROTOCOL}"
       PLEX_SERVER_IP: "${PLEX_SERVER_IP}"
       PLEX_SERVER_PORT: "${PLEX_SERVER_PORT}"
