@@ -36,7 +36,6 @@ class ServerControllers {
         const data = await response.json();
         res.status(200).json({ resources: data });
     }
-    //https://plex.tv/api/v2/home/users
     async getServerUsers(req, res) {
         const response = await fetch("https://plex.tv/api/v2/home/users", {
             method: "get",
