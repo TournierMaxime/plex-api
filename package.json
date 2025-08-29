@@ -1,7 +1,7 @@
 {
   "name": "plex-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "API for a plex server",
   "main": "dist/app/index.js",
   "type": "module",
   "scripts": {
@@ -38,7 +38,7 @@
     "tsx": "^4.19.1",
     "typescript": "^5.7.3"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["plex", "api", "node.js"],
+  "author": "Tournier Maxime",
   "license": "ISC"
 }
