@@ -1,8 +1,5 @@
 services:
   server:
-    hostname: ${SERVICE_HOSTNAME}
-    container_name: plex-api
-
     build:
       context: .
       dockerfile: ./node.Dockerfile
@@ -18,16 +15,9 @@ services:
     volumes:
       - .:/var/app
 
-    environment:
-      NODE_ENV: "${NODE_ENV}"
-      PLEX_SERVER_PROTOCOL: "${PLEX_SERVER_PROTOCOL}"
-      PLEX_SERVER_IP: "${PLEX_SERVER_IP}"
-      PLEX_SERVER_PORT: "${PLEX_SERVER_PORT}"
-      PLEX_SERVER_TOKEN: "${PLEX_SERVER_TOKEN}"
-
     user: 1000:1000
 
-    command: npm run dev
+    restart: always
 
     logging:
       driver: json-file
