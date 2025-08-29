@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import plexAPI from "../../config/plex.js"
+import { plexToken } from "../../config/plex.js"
 
 class LibraryControllers {
   private plexAPI = plexAPI
@@ -11,9 +12,9 @@ class LibraryControllers {
 
   async fetchPlexRaw(path: string) {
     const base = `${process.env.PLEX_SERVER_PROTOCOL}://${process.env.PLEX_SERVER_IP}:${process.env.PLEX_SERVER_PORT}`
-    const url = `${base}${path}${path.includes("?") ? "&" : "?"}X-Plex-Token=${
-      process.env.PLEX_SERVER_TOKEN
-    }`
+    const url = `${base}${path}${
+      path.includes("?") ? "&" : "?"
+    }X-Plex-Token=${plexToken}`
 
     const r = await fetch(url, { headers: { Accept: "application/json" } })
     const text = await r.text()

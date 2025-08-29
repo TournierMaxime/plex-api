@@ -27,6 +27,20 @@ const configureServerRoutes = (app: Application) => {
       serverControllers.getServerPreferences(req, res)
     )
   )
+
+  app.get(
+    "/api/v1/plex/server/resources",
+    expressAsyncHandler((req, res) =>
+      serverControllers.getServerResources(req, res)
+    )
+  )
+
+  app.get(
+    "/api/v1/plex/server/users",
+    expressAsyncHandler((req, res) =>
+      serverControllers.getServerUsers(req, res)
+    )
+  )
 }
 
 export { configureServerRoutes }

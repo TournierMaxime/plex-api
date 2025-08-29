@@ -1,5 +1,7 @@
 import { Request, Response } from "express"
 import plexAPI from "../../config/plex.js"
+import { plexToken, plexClient } from "../../config/plex.js"
+import fetch from "node-fetch"
 
 class ServerControllers {
   private plexAPI = plexAPI
@@ -25,6 +27,37 @@ class ServerControllers {
   async getServerPreferences(req: Request, res: Response): Promise<void> {
     const response = await this.plexAPI.server.getServerPreferences()
     res.status(200).json(response)
+  }
+
+  async getServerResources(req: Request, res: Response): Promise<void> {
+    const response = await fetch("https://plex.tv/api/v2/resources", {
+      method: "get",
+      headers: {
+        Accept: "application/json",
+        "X-Plex-Token": plexToken,
+        "X-Plex-Client-Identifier": plexClient,
+      },
+    })
+
+    const data = await response.json()
+
+    res.status(200).json({ resources: data })
+  }
+  //https://plex.tv/api/v2/home/users
+
+  async getServerUsers(req: Request, res: Response): Promise<void> {
+    const response = await fetch("https://plex.tv/api/v2/home/users", {
+      method: "get",
+      headers: {
+        Accept: "application/json",
+        "X-Plex-Token": plexToken,
+        "X-Plex-Client-Identifier": plexClient,
+      },
+    })
+
+    const data = await response.json()
+
+    res.status(200).json({ users: data })
   }
 }
 
