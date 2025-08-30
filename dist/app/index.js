@@ -4,6 +4,7 @@ import { configureActivityRoutes } from "./plexServer/routers/activityRouters.js
 import { configureHubRoutes } from "./plexServer/routers/hubRouters.js";
 import { configureLibraryRoutes } from "./plexServer/routers/libraryRouters.js";
 import { configurePlaylistRoutes } from "./plexServer/routers/playlistRouters.js";
+import { configureUserRoutes } from "./plexServer/routers/userRouters.js";
 export const keys = new Keys();
 export const httpErrorServer = {
     HttpBadRequestError,
@@ -19,6 +20,7 @@ const configureRoutes = (app) => {
     configureHubRoutes(app);
     configureLibraryRoutes(app);
     configurePlaylistRoutes(app);
+    configureUserRoutes(app);
 };
 configureRoutes(app);
 httpServerManager.startServer(Number(process.env.EXPRESS_PORT) || 3600);

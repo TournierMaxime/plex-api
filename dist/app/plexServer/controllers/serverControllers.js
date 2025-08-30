@@ -1,7 +1,7 @@
 import plexAPI from "../../config/plex.js";
 import { plexToken, plexClient } from "../../config/plex.js";
 import fetch from "node-fetch";
-class ServerControllers {
+export class ServerControllers {
     constructor() {
         this.plexAPI = plexAPI;
     }
@@ -35,18 +35,6 @@ class ServerControllers {
         });
         const data = await response.json();
         res.status(200).json({ resources: data });
-    }
-    async getServerUsers(req, res) {
-        const response = await fetch("https://plex.tv/api/v2/home/users", {
-            method: "get",
-            headers: {
-                Accept: "application/json",
-                "X-Plex-Token": plexToken,
-                "X-Plex-Client-Identifier": plexClient,
-            },
-        });
-        const data = await response.json();
-        res.status(200).json(data);
     }
 }
 export const serverControllers = new ServerControllers();
