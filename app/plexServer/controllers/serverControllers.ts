@@ -6,26 +6,18 @@ import fetch from "node-fetch"
 export class ServerControllers {
   private plexAPI = plexAPI
 
-  async getMyPlexAccount(req: Request, res: Response): Promise<void> {
-    const response = await this.plexAPI.server.getMyPlexAccount()
-    res.status(200).json(response)
-  }
-
   async getDevices(req: Request, res: Response): Promise<void> {
-    const response = await this.plexAPI.server.getDevices()
+    const response = await this.plexAPI.devices.listDevices()
     res.status(200).json(response)
   }
 
   async getServerCapabilities(req: Request, res: Response): Promise<void> {
-    const capabilities = await this.plexAPI.server.getServerCapabilities()
-    const identity = await this.plexAPI.server.getServerIdentity()
-    const clients = await this.plexAPI.server.getAvailableClients()
-    const serverList = await this.plexAPI.server.getServerList()
-    res.status(200).json({ capabilities, identity, clients, serverList })
+    const identity = await this.plexAPI.general.getIdentity()
+    res.status(200).json({ identity })
   }
 
   async getServerPreferences(req: Request, res: Response): Promise<void> {
-    const response = await this.plexAPI.server.getServerPreferences()
+    const response = await this.plexAPI.preferences.getAllPreferences()
     res.status(200).json(response)
   }
 

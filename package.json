@@ -16,7 +16,7 @@
     "bump:major": "npm version major && git push && git push --tags"
   },
   "dependencies": {
-    "@lukehagar/plexjs": "^0.40.2",
+    "@lukehagar/plexjs": "^0.43.0",
     "@prisma/client": "^5.22.0",
     "axios": "^1.7.9",
     "better-sqlite3": "^12.2.0",

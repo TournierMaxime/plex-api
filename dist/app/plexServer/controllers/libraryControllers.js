@@ -43,5 +43,10 @@ class LibraryControllers {
         const { status, ct, text } = await this.fetchPlexRaw(`/library/sections/${sectionKey}/all?type=${type}&X-Plex-Container-Start=${offset}&X-Plex-Container-Size=${limit}`);
         res.status(status).type("application/json").send(text);
     }
+    async deleteMetadataItem(req, res) {
+        const { ids } = req.params;
+        const response = await this.plexAPI.library.deleteMetadataItem({ ids });
+        res.status(200).json(response);
+    }
 }
 export const libraryControllers = new LibraryControllers();

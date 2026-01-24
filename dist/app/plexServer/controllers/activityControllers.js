@@ -4,7 +4,7 @@ class ActivityControllers {
         this.plexAPI = plexAPI;
     }
     async getServerActivities(req, res) {
-        const response = await this.plexAPI.activities.getServerActivities();
+        const response = await this.plexAPI.activities.listActivities();
         res.status(200).json(response);
     }
 }

@@ -5,23 +5,16 @@ export class ServerControllers {
     constructor() {
         this.plexAPI = plexAPI;
     }
-    async getMyPlexAccount(req, res) {
-        const response = await this.plexAPI.server.getMyPlexAccount();
-        res.status(200).json(response);
-    }
     async getDevices(req, res) {
-        const response = await this.plexAPI.server.getDevices();
+        const response = await this.plexAPI.devices.listDevices();
         res.status(200).json(response);
     }
     async getServerCapabilities(req, res) {
-        const capabilities = await this.plexAPI.server.getServerCapabilities();
-        const identity = await this.plexAPI.server.getServerIdentity();
-        const clients = await this.plexAPI.server.getAvailableClients();
-        const serverList = await this.plexAPI.server.getServerList();
-        res.status(200).json({ capabilities, identity, clients, serverList });
+        const identity = await this.plexAPI.general.getIdentity();
+        res.status(200).json({ identity });
     }
     async getServerPreferences(req, res) {
-        const response = await this.plexAPI.server.getServerPreferences();
+        const response = await this.plexAPI.preferences.getAllPreferences();
         res.status(200).json(response);
     }
     async getServerResources(req, res) {
