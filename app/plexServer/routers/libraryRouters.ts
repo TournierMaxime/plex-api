@@ -15,6 +15,12 @@ const configureLibraryRoutes = (app: Application) => {
       libraryControllers.getAllMediaLibrary(req, res),
     ),
   )
+  app.get(
+    "/api/v1/plex/library/metadata/:ratingKey",
+    expressAsyncHandler((req, res) =>
+      libraryControllers.getLibraryMetada(req, res),
+    ),
+  )
   app.delete(
     "/api/v1/plex/library/metadata/:ids",
     expressAsyncHandler((req, res) =>
