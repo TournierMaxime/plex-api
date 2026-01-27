@@ -3,7 +3,7 @@ import { plexToken } from "../../config/plex.js";
 class LibraryControllers {
     constructor() {
         this.plexAPI = plexAPI;
-        this.plexEndoint = `${process.env.PLEX_SERVER_PROTOCOL}://${process.env.PLEX_SERVER_IP}:${process.env.PLEX_SERVER_PORT}`;
+        this.plexEndoint = `${process.env.PLEX_SERVER_URL}`;
         /**
          * 1 = movie
          * 2 = show
@@ -23,7 +23,7 @@ class LibraryControllers {
         } */
     }
     async fetchPlexRaw(path) {
-        const base = `${process.env.PLEX_SERVER_PROTOCOL}://${process.env.PLEX_SERVER_IP}:${process.env.PLEX_SERVER_PORT}`;
+        const base = this.plexEndoint;
         const url = `${base}${path}${path.includes("?") ? "&" : "?"}X-Plex-Token=${plexToken}`;
         const r = await fetch(url, { headers: { Accept: "application/json" } });
         const text = await r.text();

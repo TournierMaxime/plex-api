@@ -4,10 +4,10 @@ import { plexToken } from "../../config/plex.js"
 
 class LibraryControllers {
   private plexAPI = plexAPI
-  private plexEndoint = `${process.env.PLEX_SERVER_PROTOCOL}://${process.env.PLEX_SERVER_IP}:${process.env.PLEX_SERVER_PORT}`
+  private plexEndoint = `${process.env.PLEX_SERVER_URL}`
 
   async fetchPlexRaw(path: string) {
-    const base = `${process.env.PLEX_SERVER_PROTOCOL}://${process.env.PLEX_SERVER_IP}:${process.env.PLEX_SERVER_PORT}`
+    const base = this.plexEndoint
     const url = `${base}${path}${
       path.includes("?") ? "&" : "?"
     }X-Plex-Token=${plexToken}`
