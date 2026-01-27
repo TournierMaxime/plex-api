@@ -22,25 +22,47 @@ class LibraryControllers {
     }
     async getAllMediaLibrary(req, res) {
         const { sectionKey } = req.params;
-        const { type, offset, limit } = req.query;
-        const getAllMediaLibrary = await fetch(`${this.plexEndoint}/library/sections/${sectionKey}/all?type=${type}&X-Plex-Container-Start=${offset}&X-Plex-Container-Size=${limit}`, {
+        const { type, offset = "0", limit, } = req.query;
+        const sections = ["1", "5", "8"];
+        const buildUrl = (sectionKey) => {
+            const params = new URLSearchParams();
+            if (type)
+                params.append("type", type);
+            if (offset)
+                params.append("X-Plex-Container-Start", offset);
+            if (limit)
+                params.append("X-Plex-Container-Size", limit);
+            return (`${this.plexEndoint}/library/sections/${sectionKey}/all` +
+                (params.toString() ? `?${params}` : ""));
+        };
+        const responses = await Promise.all(sections.map((sectionKey) => fetch(buildUrl(sectionKey), {
             headers: {
                 Accept: "application/json",
-                "Content-type": "application/json",
+                "Content-Type": "application/json",
                 "X-Plex-Token": plexToken,
             },
-            method: "GET",
+        })));
+        const payloads = await Promise.all(responses.map(async (r) => {
+            const text = await r.text();
+            if (!r.headers.get("content-type")?.includes("application/json")) {
+                throw new Error("Invalid Plex response");
+            }
+            return JSON.parse(text);
+        }));
+        const result = payloads.flatMap((data) => {
+            const mc = data.MediaContainer;
+            if (!mc?.Metadata?.length)
+                return [];
+            return mc.Metadata.map((item) => ({
+                librarySectionID: mc.librarySectionID,
+                librarySectionTitle: mc.librarySectionTitle,
+                librarySectionUUID: mc.librarySectionUUID,
+                ratingKey: item.ratingKey,
+                title: item.title,
+                addedAt: item.addedAt,
+            }));
         });
-        const data = await getAllMediaLibrary.json();
-        const { MediaContainer } = data;
-        res.status(200).json({
-            librarySectionID: MediaContainer.librarySectionID,
-            librarySectionTitle: MediaContainer.librarySectionTitle,
-            librarySectionUUID: MediaContainer.librarySectionUUID,
-            ratingKey: MediaContainer.Metadata && MediaContainer.Metadata[0].ratingKey,
-            title: MediaContainer.Metadata && MediaContainer.Metadata[0].title,
-            addedAt: MediaContainer.Metadata && MediaContainer.Metadata[0].addedAt,
-        });
+        res.status(200).json(result);
     }
     async deleteMetadataItem(req, res) {
         const { ids } = req.params;
