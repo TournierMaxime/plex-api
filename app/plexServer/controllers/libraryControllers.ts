@@ -92,76 +92,94 @@ class LibraryControllers {
         file: MediaContainer.Metadata[0].Media[0].Part[0].file,
         size: MediaContainer.Metadata[0].Media[0].Part[0].size,
       },
-      Image: MediaContainer.Metadata[0].Image.map((m: any) => {
-        return {
-          alt: m.alt,
-          type: m.type,
-          url: m.url,
-        }
-      }),
-      Genre: MediaContainer.Metadata[0].Genre.map((m: any) => {
-        return {
-          id: m.id,
-          filter: m.filter,
-          tag: m.tag,
-        }
-      }),
-      Country: MediaContainer.Metadata[0].Country.map((m: any) => {
-        return {
-          id: m.id,
-          filter: m.filter,
-          tag: m.tag,
-        }
-      }),
-      Guid: MediaContainer.Metadata[0].Guid.map((m: any) => {
-        return {
-          id: m.id,
-        }
-      }),
-      Rating: MediaContainer.Metadata[0].Rating.map((m: any) => {
-        return {
-          image: m.image,
-          value: m.value,
-          type: m.type,
-        }
-      }),
-      Director: MediaContainer.Metadata[0].Director.map((m: any) => {
-        return {
-          id: m.id,
-          filter: m.filter,
-          tag: m.tag,
-          tagKey: m.tagKey,
-          thumb: m.thumb,
-        }
-      }),
-      Writer: MediaContainer.Metadata[0].Writer.map((m: any) => {
-        return {
-          id: m.id,
-          filter: m.filter,
-          tag: m.tag,
-          tagKey: m.tagKey,
-          thumb: m.thumb,
-        }
-      }),
-      Role: MediaContainer.Metadata[0].Role.map((m: any) => {
-        return {
-          id: m.id,
-          filter: m.filter,
-          tag: m.tag,
-          tagKey: m.tagKey,
-          role: m.role,
-          thumb: m.thumb,
-        }
-      }),
-      Producer: MediaContainer.Metadata[0].Producer.map((m: any) => {
-        return {
-          id: m.id,
-          filter: m.filter,
-          tag: m.tag,
-          tagKey: m.tagKey,
-          thumb: m.thumb,
-        }
-      }),
+      Image:
+        MediaContainer.Metadata[0].Image &&
+        MediaContainer.Metadata[0].Image.map((m: any) => {
+          return {
+            alt: m.alt,
+            type: m.type,
+            url: m.url,
+          }
+        }),
+      Genre:
+        MediaContainer.Metadata[0].Genre &&
+        MediaContainer.Metadata[0].Genre.map((m: any) => {
+          return {
+            id: m.id,
+            filter: m.filter,
+            tag: m.tag,
+          }
+        }),
+      Country:
+        MediaContainer.Metadata[0].Country &&
+        MediaContainer.Metadata[0].Country.map((m: any) => {
+          return {
+            id: m.id,
+            filter: m.filter,
+            tag: m.tag,
+          }
+        }),
+      Guid:
+        MediaContainer.Metadata[0].Guid &&
+        MediaContainer.Metadata[0].Guid.map((m: any) => {
+          return {
+            id: m.id,
+          }
+        }),
+      Rating:
+        MediaContainer.Metadata[0].Rating &&
+        MediaContainer.Metadata[0].Rating.map((m: any) => {
+          return {
+            image: m.image,
+            value: m.value,
+            type: m.type,
+          }
+        }),
+      Director:
+        MediaContainer.Metadata[0].Director &&
+        MediaContainer.Metadata[0].Director.map((m: any) => {
+          return {
+            id: m.id,
+            filter: m.filter,
+            tag: m.tag,
+            tagKey: m.tagKey,
+            thumb: m.thumb,
+          }
+        }),
+      Writer:
+        MediaContainer.Metadata[0].Writer &&
+        MediaContainer.Metadata[0].Writer.map((m: any) => {
+          return {
+            id: m.id,
+            filter: m.filter,
+            tag: m.tag,
+            tagKey: m.tagKey,
+            thumb: m.thumb,
+          }
+        }),
+      Role:
+        MediaContainer.Metadata[0].Role &&
+        MediaContainer.Metadata[0].Role.map((m: any) => {
+          return {
+            id: m.id,
+            filter: m.filter,
+            tag: m.tag,
+            tagKey: m.tagKey,
+            role: m.role,
+            thumb: m.thumb,
+          }
+        }),
+      Producer:
+        MediaContainer.Metadata[0].Producer &&
+        MediaContainer.Metadata[0].Producer.map((m: any) => {
+          return {
+            id: m.id,
+            filter: m.filter,
+            tag: m.tag,
+            tagKey: m.tagKey,
+            thumb: m.thumb,
+          }
+        }),
     })
   }
 
