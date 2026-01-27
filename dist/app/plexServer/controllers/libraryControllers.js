@@ -37,8 +37,24 @@ class LibraryControllers {
     async getAllMediaLibrary(req, res) {
         const { sectionKey } = req.params;
         const { type, offset, limit } = req.query;
-        const { status, ct, text } = await this.fetchPlexRaw(`/library/sections/${sectionKey}/all?type=${type}&X-Plex-Container-Start=${offset}&X-Plex-Container-Size=${limit}`);
-        res.status(status).type("application/json").send(text);
+        const getAllMediaLibrary = await fetch(`${this.plexEndoint}/library/sections/${sectionKey}/all?type=${type}&X-Plex-Container-Start=${offset}&X-Plex-Container-Size=${limit}`, {
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+                "X-Plex-Token": plexToken,
+            },
+            method: "GET",
+        });
+        const data = await getAllMediaLibrary.json();
+        const { MediaContainer } = data;
+        res.status(200).json({
+            librarySectionID: MediaContainer.librarySectionID,
+            librarySectionTitle: MediaContainer.librarySectionTitle,
+            librarySectionUUID: MediaContainer.librarySectionUUID,
+            ratingKey: MediaContainer.Media && MediaContainer.Media[0].ratingKey,
+            title: MediaContainer.Media && MediaContainer.Media[0].title,
+            addedAt: MediaContainer.Media && MediaContainer.Media[0].addedAt,
+        });
     }
     async deleteMetadataItem(req, res) {
         const { ids } = req.params;

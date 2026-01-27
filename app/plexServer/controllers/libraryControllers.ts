@@ -27,10 +27,31 @@ class LibraryControllers {
     const { sectionKey } = req.params
     const { type, offset, limit } = req.query
 
-    const { status, ct, text } = await this.fetchPlexRaw(
-      `/library/sections/${sectionKey}/all?type=${type}&X-Plex-Container-Start=${offset}&X-Plex-Container-Size=${limit}`,
+    const getAllMediaLibrary = await fetch(
+      `${this.plexEndoint}/library/sections/${sectionKey}/all?type=${type}&X-Plex-Container-Start=${offset}&X-Plex-Container-Size=${limit}`,
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+          "X-Plex-Token": plexToken,
+        },
+        method: "GET",
+      },
     )
-    res.status(status).type("application/json").send(text)
+
+    const data = await getAllMediaLibrary.json()
+
+    const { MediaContainer } = data
+
+    res.status(200).json({
+      librarySectionID: MediaContainer.librarySectionID,
+      librarySectionTitle: MediaContainer.librarySectionTitle,
+      librarySectionUUID: MediaContainer.librarySectionUUID,
+      ratingKey:
+        MediaContainer.Metadata && MediaContainer.Metadata[0].ratingKey,
+      title: MediaContainer.Metadata && MediaContainer.Metadata[0].title,
+      addedAt: MediaContainer.Metadata && MediaContainer.Metadata[0].addedAt,
+    })
   }
 
   async deleteMetadataItem(req: Request, res: Response): Promise<void> {
