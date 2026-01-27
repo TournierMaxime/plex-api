@@ -1,26 +1,16 @@
 import plexAPI from "../../config/plex.js";
 import { plexToken } from "../../config/plex.js";
+/**
+ * 1 = movie
+ * 2 = show
+ * 3 = season
+ * 4 = episode
+ *
+ */
 class LibraryControllers {
     constructor() {
         this.plexAPI = plexAPI;
         this.plexEndoint = `${process.env.PLEX_SERVER_URL}`;
-        /**
-         * 1 = movie
-         * 2 = show
-         * 3 = season
-         * 4 = episode
-         *
-         */
-        /*   async getAllMediaLibrary(req: Request, res: Response): Promise<void> {
-          const { sectionKey } = req.params
-          const { type } = req.query
-      
-          const response = await this.plexAPI.library.getLibrarySectionsAll({
-            sectionKey: Number(sectionKey),
-            type: Number(type),
-          })
-          res.status(200).json(response)
-        } */
     }
     async fetchPlexRaw(path) {
         const base = this.plexEndoint;
@@ -29,10 +19,6 @@ class LibraryControllers {
         const text = await r.text();
         const ct = r.headers.get("content-type") ?? "";
         return { status: r.status, ct, text };
-    }
-    async getAllLibraries(req, res) {
-        const { status, ct, text } = await this.fetchPlexRaw("/library/sections");
-        res.status(status).type("application/json").send(text);
     }
     async getAllMediaLibrary(req, res) {
         const { sectionKey } = req.params;
@@ -51,9 +37,9 @@ class LibraryControllers {
             librarySectionID: MediaContainer.librarySectionID,
             librarySectionTitle: MediaContainer.librarySectionTitle,
             librarySectionUUID: MediaContainer.librarySectionUUID,
-            ratingKey: MediaContainer.Media && MediaContainer.Media[0].ratingKey,
-            title: MediaContainer.Media && MediaContainer.Media[0].title,
-            addedAt: MediaContainer.Media && MediaContainer.Media[0].addedAt,
+            ratingKey: MediaContainer.Metadata && MediaContainer.Metadata[0].ratingKey,
+            title: MediaContainer.Metadata && MediaContainer.Metadata[0].title,
+            addedAt: MediaContainer.Metadata && MediaContainer.Metadata[0].addedAt,
         });
     }
     async deleteMetadataItem(req, res) {

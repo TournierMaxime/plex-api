@@ -2,6 +2,14 @@ import { Request, Response } from "express"
 import plexAPI from "../../config/plex.js"
 import { plexToken } from "../../config/plex.js"
 
+/**
+ * 1 = movie
+ * 2 = show
+ * 3 = season
+ * 4 = episode
+ *
+ */
+
 class LibraryControllers {
   private plexAPI = plexAPI
   private plexEndoint = `${process.env.PLEX_SERVER_URL}`
@@ -16,11 +24,6 @@ class LibraryControllers {
     const text = await r.text()
     const ct = r.headers.get("content-type") ?? ""
     return { status: r.status, ct, text }
-  }
-
-  async getAllLibraries(req: Request, res: Response) {
-    const { status, ct, text } = await this.fetchPlexRaw("/library/sections")
-    res.status(status).type("application/json").send(text)
   }
 
   async getAllMediaLibrary(req: Request, res: Response) {
@@ -203,25 +206,6 @@ class LibraryControllers {
         }),
     })
   }
-
-  /**
-   * 1 = movie
-   * 2 = show
-   * 3 = season
-   * 4 = episode
-   *
-   */
-
-  /*   async getAllMediaLibrary(req: Request, res: Response): Promise<void> {
-    const { sectionKey } = req.params
-    const { type } = req.query
-
-    const response = await this.plexAPI.library.getLibrarySectionsAll({
-      sectionKey: Number(sectionKey),
-      type: Number(type),
-    })
-    res.status(200).json(response)
-  } */
 }
 
 export const libraryControllers = new LibraryControllers()
