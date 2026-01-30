@@ -74,9 +74,12 @@ class LibraryControllers {
       }),
     )
 
+    let total
     const result = payloads.flatMap((data) => {
       const mc = data.MediaContainer
       if (!mc?.Metadata?.length) return []
+
+      total = mc.totalSize
 
       return mc.Metadata.map((item: any) => ({
         librarySectionID: mc.librarySectionID,
@@ -88,7 +91,12 @@ class LibraryControllers {
       }))
     })
 
-    res.status(200).json(result)
+    res.status(200).json({
+      data: result,
+      total,
+      size: result.length ?? Number(limit),
+      offset: Number(offset),
+    })
   }
 
   async deleteMetadataItem(req: Request, res: Response): Promise<void> {
