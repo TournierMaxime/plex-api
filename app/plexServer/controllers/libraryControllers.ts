@@ -38,7 +38,7 @@ class LibraryControllers {
       limit?: string
     }
 
-    const sections = ["1", "5", "8"]
+    const sections = [sectionKey]
 
     const buildUrl = (sectionKey: string) => {
       const params = new URLSearchParams()

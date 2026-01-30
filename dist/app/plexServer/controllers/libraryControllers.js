@@ -23,7 +23,7 @@ class LibraryControllers {
     async getAllMediaLibrary(req, res) {
         const { sectionKey } = req.params;
         const { type, offset = "0", limit, } = req.query;
-        const sections = ["1", "5", "8"];
+        const sections = [sectionKey];
         const buildUrl = (sectionKey) => {
             const params = new URLSearchParams();
             if (type)
