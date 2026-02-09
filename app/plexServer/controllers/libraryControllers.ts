@@ -47,7 +47,7 @@ class LibraryControllers {
       if (limit) params.append("X-Plex-Container-Size", limit)
 
       return (
-        `${this.plexEndoint}/library/sections/${sectionKey}/all` +
+        `${this.plexEndoint}/library/sections/${sectionKey}/all?sort=addedAt:desc` +
         (params.toString() ? `?${params}` : "")
       )
     }

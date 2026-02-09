@@ -32,7 +32,7 @@ class LibraryControllers {
                 params.append("X-Plex-Container-Start", offset);
             if (limit)
                 params.append("X-Plex-Container-Size", limit);
-            return (`${this.plexEndoint}/library/sections/${sectionKey}/all` +
+            return (`${this.plexEndoint}/library/sections/${sectionKey}/all?sort=addedAt:desc` +
                 (params.toString() ? `?${params}` : ""));
         };
         const responses = await Promise.all(sections.map((sectionKey) => fetch(buildUrl(sectionKey), {
